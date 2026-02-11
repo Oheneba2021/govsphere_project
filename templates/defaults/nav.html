@@ -1,0 +1,78 @@
+{% load static %}
+{% block header %}
+<style>
+    
+    .logo-container-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        width: 100%;
+        color:whitesmoke;
+        background-color: #1a4dac;
+        border-bottom: 2px solid rgba(60, 64, 67, 0.15);
+    }
+
+    .logo-container img {
+        height: 50px;
+    }
+
+    .profile-container > div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        /* border: 2px solid red; */
+    }
+
+    .profile-container img {
+        height: 80px;
+        width: 80px;
+        border:2px solid whitesmoke;
+        border-radius: 50%;
+        box-sizing: border-box;
+    }
+
+    nav a {
+        border: 2px solid #1a4dac;
+        padding: 10px 15px;
+        text-decoration: none;
+
+
+    }
+
+    .nav-container{
+        /* border:2px solid red; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+</style>
+<header>
+    <div class="logo-container-header">
+        <div class="logo-container">
+            <img src="{%static 'images/govsphere.png'%}" alt="Govsphere Logo">
+        </div>
+        <div class="profile-container">
+            <div>
+                <img src="https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-user-profile-avatar-png-image_10211471.png" alt="Profile Picture">
+                <div>
+                    <h3>Admin User</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav-container">
+        <nav>
+           <a href="{% url 'dashboard' %}">Dashboard</a>
+           <a href="{% url 'project_list' %}">Projects</a>
+           <a href="{% url 'feedback' %}">Feedback</a>
+           <a href="">Admin</a>
+           <a href="">Logout</a>
+        </nav>
+    </div>
+
+
+</header>
+
+{% endblock header %}

@@ -1,0 +1,80 @@
+{% extends "defaults/base.html" %}
+
+
+{%block title%}
+
+{{block.super}}: Government Projects
+
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="main-container">
+    <div class="projects-nav">
+        <h3>Projects</h3>
+        <ul>
+            <l1>
+                <a href="">Add Project</a>
+            </l1>
+            <l1>
+                <a href="">View Project Details</a>
+            </l1>
+            <l1>
+                <a href="">Compare Projects</a>
+            </l1>
+            <l1>
+                <a href="">Project Reports</a>
+            </l1>
+        </ul>
+
+    </div>
+
+    <div class="project-list">
+        <h1>Government Projects </h1>
+
+        <!-- <ul>
+        {% for project in projects %}
+        <li>
+            <strong>{{ project.title }}</strong>
+            Budget: ${{ project.budget }} <br>
+            Status: {{ project.status }} <br>
+
+        </li>
+        {% empty %}
+        <li>No projects available.</li>
+        {% endfor %}
+    </ul> -->
+
+
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Budget</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.title }}</td>
+                <td>${{ project.budget }}</td>
+                <td>{{ project.status }}</td>
+                <td>
+                    <a href=""><i class="fa-solid fa-eye"></i></a>
+                    <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href=""><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No projects available.</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

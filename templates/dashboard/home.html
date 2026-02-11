@@ -1,0 +1,140 @@
+{% extends "defaults/base.html" %}
+
+{%block title%}
+
+{{block.super}}: Dashboard
+
+{% endblock title %}
+
+{% block content %}
+<style>
+    .is-overview-item,
+    .is-service-item {
+        background-color: white;
+        border: 2px solid #1a4dac;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .is-overview-item:hover,
+    .is-service-item:hover {
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    }
+
+    .revenue-and-finance-overview,
+    .service-requests {
+        display: flex;
+        gap: 20px;
+        justify-content: space-evenly;
+        padding: 50px;
+        border-bottom: 2px solid rgba(60, 64, 67, 0.15);
+    }
+
+    .summary-and-filter{
+        display: flex;
+        justify-content: space-between;
+    }
+    /* h2{
+        text-align: center;
+    } */
+
+    .summary-2,
+    .is-summary{
+        margin-left:30px;
+    }
+
+    .is-filter > select{
+        border: 2px solid #1a4dac;
+        margin:30px;
+
+
+    }
+</style>
+
+<main>
+    <div class="summary-container">
+        <div class="summary-and-filter">
+        <div class="is-summary">
+            <h2>Revenue & Finance Overview</h2>
+            <!-- <p>Here you can get an overview of the government's performance, manage projects, and view feedback from
+                citizens.</p> -->
+        </div>
+        <div class="is-filter">
+            <select name="date-filter" id="d-filter">
+                <option value="Today">Today</option>
+                <option value="Yesterday">Yesterday</option>
+                <option value="7-days">Last 7 days</option>
+                <option value="1-month">Last 31 days</option>
+                <option value="1-year">Last 365 days</option>
+
+                </option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="revenue-and-finance-overview">
+        <div class="is-overview-item">
+            <span>
+                Total Epected Revenue
+            </span>
+            <h2>
+                10,200,000.00
+            </h2>
+        </div>
+        <div class="is-overview-item">
+            <span>
+                Total Revenue Collected
+            </span>
+            <h2>
+                5,700,000.00
+            </h2>
+        </div>
+        <div class="is-overview-item">
+            <span>
+                Net Outstanding Payments
+            </span>
+            <h2>
+                4,500,000.00
+            </h2>
+        </div>
+
+    </div>
+    </div>
+    <div class="summary-container">
+        <div class="summary-2">
+            <h2>Service Requests Overview</h2>
+        </div>
+        <div class="service-requests">
+        <div class="is-service-item">
+            <span>
+                Number of Service Requests
+            </span>
+            <h2>
+                1,200
+            </h2>
+        </div>
+        <div class="is-service-item">
+            <span>
+                Requests in Progress
+            </span>
+            <h2>
+                300
+            </h2>
+        </div>
+        <div class="is-service-item">
+            <span>
+                Completed Requests
+            </span>
+            <h2>
+                900
+            </h2>
+        </div>
+    </div>
+    </div>
+    
+    
+</main>
+
+{% endblock content %}
