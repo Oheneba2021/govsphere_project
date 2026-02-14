@@ -1,0 +1,13 @@
+{% extends "feedback/feedback_list.html" %}
+
+{% block projects_main %}
+    <div class="project-detail">
+        <h1>{{feedback_detail.project.title}} Feedback</h1>
+        <div class="is-details">
+            <div>
+                <span><strong>Feedback:</strong></span>
+                <p>{{feedback_detail.message}}</p>
+            </div>
+        </div>
+    </div>
+{% endblock projects_main %}

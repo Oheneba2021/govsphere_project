@@ -25,7 +25,14 @@
         </div>
         <div>
             <h1 style="color: white; text-align: center;">Welcome: <br>Login to Govsphere</h1>
-            <form method="post" action="/login/"
+            {% if form.errors %}
+            <div style="background:#ffdddd; padding:10px; border-radius:6px; margin-bottom:12px;">
+                <p style="margin:0; color:#7a0000; text-align:center;">
+                    Invalid username or password.
+                </p>
+            </div>
+            {% endif %}
+            <form method="post" action="{% url 'login' %}"
                 style="max-width: 300px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px;">
                 {% csrf_token %}
                 <div style="margin-bottom: 15px;">
@@ -38,7 +45,7 @@
                     <input type="password" id="password" name="password" required
                         style="width: 100%; padding: 8px; box-sizing: border-box;">
                 </div>
-              
+
                 <button type="submit"
                     style="width: 100%; padding: 10px; background-color: #1a4dac; color: white; border: none; border-radius: 4px; cursor: pointer;">Login</button>
             </form>

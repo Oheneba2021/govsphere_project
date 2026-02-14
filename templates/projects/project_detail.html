@@ -1,0 +1,39 @@
+{% extends "projects/project_list.html"%}
+
+{%block title%}
+{{block.super}}: {{project.title}}
+{%endblock title%}
+
+
+
+{%block projects_main%}
+<style>
+    .is-details{
+        display: flex;
+        justify-content: space-around;
+        gap: 100px;
+        /* border:2px solid red; */
+    }
+</style>
+<div class="project-detail">
+    <h1>Details of {{project.title}}</h1>
+    <div class="is-details">
+        <div>
+            <span><strong>Project Name:</strong></span>
+            <p>{{project.title}}</p>
+            <span><strong>Location:</strong></span>
+            <p>{{project.location}}</p>
+            <span><strong>Budget:</strong></span>
+            <p>GHS {{project.budget}}</p>
+        </div>
+        <div>
+            <span><strong>Project Status:</strong></span>
+            <p>{{project.status}}</p>
+            <span><strong>Project Description:</strong></span>
+            <p>{{project.description}}</p>
+        </div>
+    </div>
+
+
+</div>
+{%endblock projects_main%}

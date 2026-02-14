@@ -11,25 +11,28 @@
 
 {% block content %}
 <div class="main-container">
+    {% block main_nav %}
     <div class="projects-nav">
         <h3>Projects</h3>
         <ul>
-            <l1>
+            <li>
                 <a href="">Add Project</a>
-            </l1>
-            <l1>
+            </li>
+            <li>
                 <a href="">View Project Details</a>
-            </l1>
-            <l1>
+            </li>
+            <li>
                 <a href="">Compare Projects</a>
-            </l1>
-            <l1>
+            </li>
+            <li>
                 <a href="">Project Reports</a>
-            </l1>
+            </li>
         </ul>
 
     </div>
+    {% endblock main_nav %}
 
+    {% block projects_main %}
     <div class="project-list">
         <h1>Government Projects </h1>
 
@@ -46,33 +49,54 @@
         {% endfor %}
     </ul> -->
 
+        <div class="is-project-list">
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Budget</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                {% for project in all_projects %}
+                <tr>
+                    <td>{{ project.title }}</td>
+                    <td>GHS {{ project.budget }}</td>
+                    <td>{{ project.status }}</td>
+                    <td>
+                        <a href="{% url 'project_detail' project.pk %}"><i class="fa-solid fa-eye"></i></a>
+                        <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href=""><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No projects available.</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
 
-        <table>
-            <tr>
-                <th>Title</th>
-                <th>Budget</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-            {% for project in projects %}
-            <tr>
-                <td>{{ project.title }}</td>
-                <td>${{ project.budget }}</td>
-                <td>{{ project.status }}</td>
-                <td>
-                    <a href=""><i class="fa-solid fa-eye"></i></a>
-                    <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href=""><i class="fa-solid fa-trash"></i></a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="3">No projects available.</td>
-            </tr>
-            {% endfor %}
-        </table>
+
+        {% if page.has_other_pages %}
+        <div class="pagnation">
+            {% if page.has_previous %}
+            <a href="?page={{page.previous_page_number}}">Previous</a>
+            {% endif %}
+            <span>
+                Page {{page.number}} of {{page.paginator.num_pages}}
+            </span>
+
+            {% if page.has_next %}
+            <a href="?page={{page.next_page_number}}">Next</a>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
+
+    {% endblock projects_main %}
+
 </div>
+
 
 
 

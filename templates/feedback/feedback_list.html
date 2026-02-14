@@ -1,0 +1,53 @@
+{% extends "projects/project_list.html" %}
+
+{% block title %}
+Govsphere : Feedbacks
+{% endblock title %}
+
+{% block main_nav %}
+    <div class="projects-nav">
+        <h3>Feedback</h3><hr>
+        <ul>
+            <li>
+                <a href="">Add Feedback</a>
+            </li>
+            <li>
+                <a href="">View Project Feedbacks</a>
+            </li>
+        
+            <li>
+                <a href="">Feedback Reports</a>
+            </li>
+        </ul>
+
+    </div>
+{% endblock main_nav %}
+
+{% block projects_main %}
+    <div class="is-project-list">
+            <table>
+                <tr>
+                    <th>Project Name</th>
+                    <th>Feedback Message</th>
+                    <!-- <th>Budget</th> -->
+                    <!-- <th>Status</th> -->
+                    <th>Actions</th>
+                </tr>
+                {% for feedback in feedback_list %}
+                <tr>
+                    <td>{{ feedback.project.title }}</td>
+                    <td>{{ feedback.message }}</td>
+                    <td>
+                        <a href=""><i class="fa-solid fa-eye"></i></a>
+                        <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href=""><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No Feedbacks available.</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+{% endblock projects_main %}
