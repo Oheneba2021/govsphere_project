@@ -8,15 +8,109 @@
 
 {%block projects_main%}
 <style>
-    .is-details{
+    .is-details {
         display: flex;
         justify-content: space-around;
         gap: 100px;
         /* border:2px solid red; */
     }
+
+    .image-item {
+        width: 100%;
+    }
+
+    .image_container {
+        padding: 10px;
+        margin: 30px;
+    }
+
+    /* CSS */
+    .button-86 {
+        all: unset;
+        width: 100px;
+        height: 30px;
+        font-size: 16px;
+        background: transparent;
+        border: none;
+        position: relative;
+        color: #f0f0f0;
+        cursor: pointer;
+        z-index: 1;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .button-86::after,
+    .button-86::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: -99999;
+        transition: all .4s;
+    }
+
+    .button-86::before {
+        transform: translate(0%, 0%);
+        width: 100%;
+        height: 100%;
+        background: #1a4dac;
+        border-radius: 10px;
+    }
+
+    .button-86 a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .button-86::after {
+        transform: translate(10px, 10px);
+        width: 35px;
+        height: 35px;
+        background: #ffffff15;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 50px;
+    }
+
+    .button-86:hover::before {
+        transform: translate(5%, 20%);
+        width: 110%;
+        height: 110%;
+    }
+
+    .button-86:hover::after {
+        border-radius: 10px;
+        transform: translate(0, 0);
+        width: 100%;
+        height: 100%;
+    }
+
+    .button-86:active::after {
+        transition: 0s;
+        transform: translate(0, 5%);
+    }
+
+
+    .image_container:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    }
 </style>
 <div class="project-detail">
-    <h1>Details of {{project.title}}</h1>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>Details of {{project.title}}</h1>
+        <button class="button-86" role="button">
+            <a href="{% url 'add_project_attachment' project.pk %}">Attach Document</a>
+        </button>
+    </div>
     <div class="is-details">
         <div>
             <span><strong>Project Name:</strong></span>
@@ -34,6 +128,52 @@
         </div>
     </div>
 
+    <div class="project-files">
+        {% for att in attachments %}
+
+        <div class="image_container">
+            {% if att.file_type == "image" %}
+            <div class="image-item">
+                <img src="{{ att.file.url }}" alt="Project Image" width="100%">
+
+            </div>
+
+            {% elif att.file_type == "pdf" %}
+            <div class="pdf-item">
+                <embed src="{{ att.file.url }}" type="application/pdf" width="100%" height="600px" />
+            </div>
+        </div>
+
+
+        {% else %}
+        <a href="{{ att.file.url }}">{{ att.file.name }}</a>
+        {% endif %}
+
+        {% empty %}
+        <p>No attachments available for this project.</p>
+        {% endfor %}
+
+    </div>
+
+
+
+
+
+    <div class="project-feedback">
+        <h2>Feedback for this project</h2>
+        <ol>
+            {% for feed in feedback %}
+            <li>
+                {{feed.message}}
+            </li>
+            {% empty %}
+            <p>No feedback available for this project.</p>
+            {% endfor %}
+        </ol>
+
+    </div>
+
 
 </div>
+
 {%endblock projects_main%}

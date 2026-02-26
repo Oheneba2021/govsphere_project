@@ -1,3 +1,6 @@
+from email.mime import message
+from genericpath import exists
+
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Feedback, Project
 from .forms import FeedbackWithProjectForm, FeedbackForProjectForm
@@ -9,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def feedback_list(request):
     all_feedback = Feedback.objects.all()
-    paginator = Paginator(all_feedback, 10)
+    paginator = Paginator(all_feedback, 5)
     
     page_number = request.GET.get('page', 1)
     page_number = int(page_number)
@@ -56,38 +59,57 @@ def add_feedback_for_project(request, project_id):
     
 @login_required
 def add_feedback_global(request):
-    '''Entry Point # 2, Global add feedback page : user can select the project they want to give feedback on'''
-    
-    q = request.GET.get('q', "").strip()
-    
+    q = request.GET.get("q", "").strip()
+
     project_qs = Project.objects.all()
-    
-    if q: 
-        project_qs = project_qs.filter(
-            Q(title__icontains=q) | Q(description__icontains=q)
-        )
+    if q:
+        project_qs = project_qs.filter(Q(title__icontains=q) | Q(description__icontains=q))
 
     if request.method == "POST":
-        form =  FeedbackWithProjectForm(request.POST)
-        
+        form = FeedbackWithProjectForm(request.POST)
+        # keep dropdown consistent if user searched
+        form.fields["project"].queryset = project_qs.order_by("title")
+
         if form.is_valid():
+            cd = form.cleaned_data  # cleaned_data is safe & reliable
+
+            exists = Feedback.objects.filter(
+                user=request.user,
+                project=cd["project"],
+                message=cd["message"].strip(),
+                feedback_type=cd["feedback_type"],
+                priority=cd["priority"],
+                project_rating=cd.get("project_rating"),
+                contractor_rating=cd.get("contractor_rating"),
+                is_anonymous=cd.get("is_anonymous", False),
+            ).exists()
+
+            if exists:
+                # Best UX: send them back to the project page (or feedback list)
+                return redirect("project_detail", pk=cd["project"].pk)
+
             feedback = form.save(commit=False)
             feedback.user = request.user
+            # status stays default='submitted' in model
             feedback.save()
-            return redirect("feedback_detail", pk = feedback.project.id)   
-        
+            return redirect("feedback_detail", pk=feedback.pk)
+
     else:
         form = FeedbackWithProjectForm()
         form.fields["project"].queryset = project_qs.order_by("title")
-        
-    return render(
-        request,
-        "feedback/add_feedback_global.html",
-        {
-            "form": form,
-            'q': q,
-            "project_count": project_qs.count(),
-            "projects": project_qs.order_by("title"),
-            "q": q
-        }
-    )
+
+    data = {
+        "form": form,
+        "q": q,
+        "project_count": project_qs.count(),
+        "projects": project_qs.order_by("title"),
+
+        # only needed if you're manually building selects (but you're using form too)
+        "feedback_type_choices": Feedback.FEEDBACK_TYPE_CHOICES,
+        "priority_choices": Feedback.PRIORITY_CHOICES,
+        "rating_choices": Feedback.RATING,
+        "project_rating": Feedback.RATING,
+        "contractor_rating": Feedback.RATING,
+    }
+
+    return render(request, "feedback/add_feedback_global.html", data)

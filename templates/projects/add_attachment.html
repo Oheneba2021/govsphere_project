@@ -1,0 +1,15 @@
+{% extends "projects/project_list.html" %}
+
+{% block projects_main %}
+<div>
+  <h2>Add Attachment</h2>
+  <p><strong>Project:</strong> {{ project.title }}</p>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+</div>
+
+{% endblock projects_main %}

@@ -1,0 +1,105 @@
+{% extends "feedback/feedback_list.html" %}
+
+{% block title %}
+Govsphere : Add Feedback
+{% endblock title %}
+
+{% block projects_main %}
+<style>
+    .is-add-feedback {
+        /* max-width: 400px; */
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    
+
+    .is-add-feedback h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .is-add-feedback .form-item {
+        margin-bottom: 15px;
+    }
+
+    .is-add-feedback label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .is-add-feedback select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    .is-add-feedback button {
+        width: 100%;
+        padding: 10px;
+        background-color: #1a4dac;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+<div class="is-add-feedback">
+    <h2>Add Feedback</h2>
+    <form method="post">
+        {% csrf_token %}
+        <!-- {{ form.as_p }} -->
+        <div class="form-item">
+            <label for="select-project">Select Project:</label>
+            <select name="project" id="select-project">
+                <option value="">-- Select a Project --</option>
+                {% for project in projects %}
+                <option value="{{ project.id }}">{{ project.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="feedback-type">Feedback Type:</label>
+            <select name="feedback_type" id="feedback-type">
+                {% for value, label in feedback_type_choices %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+         <div class="form-item">
+            <label for="priority">Priority:</label>
+            <select name="priority" id="priority">
+                {% for value, label in priority_choices %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-item">
+            <label for="project-rating">Project Rating:</label>
+            <select name="project_rating" id="project-rating">
+                {% for value, label in project_rating %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="contractor-rating">Contractor Rating:</label>
+            <select name="contractor_rating" id="contractor-rating">
+                {% for value, label in contractor_rating %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="message">Message:</label>
+            <textarea name="message" id="message" rows="4" cols="50"></textarea>
+        </div>
+        
+        <button type="submit">Submit Feedback</button>
+    </form>
+</div>
+{% endblock projects_main %}

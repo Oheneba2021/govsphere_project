@@ -1,0 +1,76 @@
+{% extends "projects/project_list.html" %}
+
+{% block title %}
+Govsphere: Project Details
+
+{% endblock title %}
+
+{% block projects_main %}
+<style>
+    .search-container{
+        width:1200px;
+    }
+</style>
+
+<div class="project-detail">
+
+    <h2>View Projects</h2>
+    <div class="search-container">
+        <form method="get" style="margin-bottom: 1rem;">
+        <input type="text" name="q" value="{{ q }}" placeholder="Search by title, description, or location"
+            style="width: 60%; padding: 8px;">
+        <button type="submit" style="padding: 8px 12px;">Search</button>
+
+        {% if q %}
+        <a href="{% url 'view_project_details' %}" style="margin-left: 10px;">Clear</a>
+        {% endif %}
+    </form>
+    </div>
+    
+    <div class="search-results">
+          {% if q %}
+    <p><small>Showing {{ count }} project(s)</small></p>
+
+    <ul style="list-style: none; padding: 0;">
+        {% for project in projects %}
+        <li style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 10px;">
+            <a href="{% url 'project_detail' project.pk %}" style="font-weight: bold; text-decoration: none;">
+                {{ project.title }}
+            </a>
+            <div style="color: #666; font-size: 0.9em;">
+                Status: {{ project.status }} • Budget: {{ project.budget }} • Location: {{ project.location }}
+            </div>
+            <p style="margin: 6px 0 0;">
+                {{ project.description|truncatewords:20 }}
+            </p>
+        </li>
+        {% empty %}
+        <li>No projects found.</li>
+        {% endfor %}
+    </ul>
+
+    {% endif %}
+    </div>
+
+  
+    <!-- <ul style="list-style: none; padding: 0;">
+        {% for project in projects %}
+        <li style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 10px;">
+            <a href="{% url 'project_detail' project.pk %}" style="font-weight: bold; text-decoration: none;">
+                {{ project.title }}
+            </a>
+            <div style="color: #666; font-size: 0.9em;">
+                Status: {{ project.status }} • Budget: {{ project.budget }} • Location: {{ project.location }}
+            </div>
+            <p style="margin: 6px 0 0;">
+                {{ project.description|truncatewords:20 }}
+            </p>
+        </li>
+        {% empty %}
+        <li>No projects found.</li>
+        {% endfor %}
+    </ul> -->
+</div>
+
+
+{%endblock projects_main%}

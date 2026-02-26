@@ -1,0 +1,89 @@
+{% extends "projects/project_list.html" %}
+
+{% block title %}
+
+Govsphere: Add New Project
+
+{% endblock title %}
+
+{% block projects_main %}
+<style>
+    .add-project-form {
+        width: 60%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .add-project-form h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .is_form_item {
+        display: flex;
+        flex-direction: column; 
+        margin-bottom: 20px;
+
+    }
+
+    input,
+    textarea,
+    select,
+    button {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    button {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+</style>
+<div class="add-project-form">
+    <h2>Add New Project</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="is_form_item">
+            <label for="title">Project Title</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div class="is_form_item">
+            <label for="description">Project Description</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
+        <div class="is_form_item">
+            <label for="budget">Project Budget</label>
+            <input type="number" id="budget" name="budget" required>
+        </div>
+        <div class="is_form_item">
+            <label for="status">Project Status</label>
+            <select id="status" name="status" required>
+
+                {% for value, label in status %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <div class="is_form_item">
+            <label for="location">Project Location</label>
+            <input type="text" id="location" name="location" required>
+        </div>
+
+        <button type="submit">Add Project</button>
+    </form>
+
+    {% if forms.errors %}
+    {{ forms.errors }}
+    {% endif %}
+</div>
+{% endblock projects_main %}

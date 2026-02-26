@@ -9,10 +9,10 @@ Govsphere : Feedbacks
         <h3>Feedback</h3><hr>
         <ul>
             <li>
-                <a href="">Add Feedback</a>
+                <a href="{% url 'add_feedback_global' %}">Add Feedback</a>
             </li>
             <li>
-                <a href="">View Project Feedbacks</a>
+                <a href="{% url 'feedback' %}">View Project Feedbacks</a>
             </li>
         
             <li>
@@ -36,9 +36,9 @@ Govsphere : Feedbacks
                 {% for feedback in feedback_list %}
                 <tr>
                     <td>{{ feedback.project.title }}</td>
-                    <td>{{ feedback.message }}</td>
+                    <td>{{ feedback.message|truncatewords:20 }}</td>
                     <td>
-                        <a href=""><i class="fa-solid fa-eye"></i></a>
+                        <a href="{% url 'feedback_detail' feedback.pk %}"><i class="fa-solid fa-eye"></i></a>
                         <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
                         <a href=""><i class="fa-solid fa-trash"></i></a>
                     </td>
@@ -49,5 +49,18 @@ Govsphere : Feedbacks
                 </tr>
                 {% endfor %}
             </table>
+            {% if page.has_other_pages %}
+        <div class="pagnation">
+            {% if page.has_previous %}
+            <a href="?page={{page.previous_page_number}}">Previous</a>
+            {% endif %}
+            <span>
+                Page {{page.number}} of {{page.paginator.num_pages}}
+            </span>
+
+            {% if page.has_next %}
+            <a href="?page={{page.next_page_number}}">Next</a>
+            {% endif %}
         </div>
+        {% endif %}
 {% endblock projects_main %}

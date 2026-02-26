@@ -49,7 +49,23 @@ class Feedback(models.Model):
     is_anonymous = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now_add=True)
     
-    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=[
+                    'project',
+                    'user',
+                    'feedback_type',
+                    'message',
+                    'is_anonymous',
+                    'project_rating',
+                    'contractor_rating',
+                    'status',
+                    
+                ],
+                name='unique_same_feedback_payload'
+            )
+        ]
         
     
     def __str__(self):

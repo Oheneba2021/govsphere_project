@@ -16,10 +16,10 @@
         <h3>Projects</h3>
         <ul>
             <li>
-                <a href="">Add Project</a>
+                <a href="{% url 'add_new_project' %}">Add Project</a>
             </li>
             <li>
-                <a href="">View Project Details</a>
+                <a href="{% url 'view_project_details' %}">View Project Details</a>
             </li>
             <li>
                 <a href="">Compare Projects</a>
@@ -78,7 +78,7 @@
 
 
         {% if page.has_other_pages %}
-        <div class="pagnation">
+        <div class="pagination">
             {% if page.has_previous %}
             <a href="?page={{page.previous_page_number}}">Previous</a>
             {% endif %}
@@ -92,6 +92,7 @@
         </div>
         {% endif %}
     </div>
+    
 
     {% endblock projects_main %}
 
