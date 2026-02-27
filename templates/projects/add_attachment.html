@@ -7,8 +7,34 @@
 
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
+    <form action="">
+      <div class="is_form_item">
+        <label for="file_type">File Type:</label>
+        <select id="file_type" name="file_type" required>
+          {% for value, label in file_type %}
+          <option value="{{ value }}">{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="is_form_item">
+        <label for="file">Select file to upload:</label>
+        <input type="file" id="file" name="file" required>
+      </div>
+      <div class="is_form_item">
+        <label for="caption">File caption (optional):</label>
+        <textarea id="caption" name="caption" rows="4"></textarea>
+      </div>
+
+      <button type="submit">Upload</button>
+      
+
+
+    </form>
+
+     {% if forms.errors %}
+    {{ forms.errors }}
+    {% endif %}
+
   </form>
 </div>
 

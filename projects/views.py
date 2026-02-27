@@ -103,6 +103,7 @@ def add_project_attachment(request, pk):
     data = {
         "form": form,
         "project": project,
+        "file_type": ProjectAttachment.FILE_TYPE_CHOICES,
         
     }
 
@@ -150,6 +151,7 @@ def edit_project(request, pk):
     data = {
         "form": form,
         "project": project,
+        "status": Project.STATUS_CHOICES,
     }
     return render(request, "projects/edit_project.html", data)
 
@@ -167,5 +169,5 @@ def delete_project(request, pk):
     data = {
         "project": project,
     }
-    return render(request, "projects/delete_project.html", data)
+    return render(request, "projects/confirm_delete.html", data)
 

@@ -39,8 +39,8 @@ Govsphere : Feedbacks
                     <td>{{ feedback.message|truncatewords:20 }}</td>
                     <td>
                         <a href="{% url 'feedback_detail' feedback.pk %}"><i class="fa-solid fa-eye"></i></a>
-                        <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a href=""><i class="fa-solid fa-trash"></i></a>
+                        <a href="{% url 'edit_feedback' feedback.pk %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="{% url 'delete_feedback' feedback.pk %}"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
                 {% empty %}

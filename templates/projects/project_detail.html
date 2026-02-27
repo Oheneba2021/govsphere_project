@@ -131,15 +131,15 @@
     <div class="project-files">
         {% for att in attachments %}
 
-        <div class="image_container">
+        <div class="is_file_item">
             {% if att.file_type == "image" %}
-            <div class="image-item">
+            <div class="image-item image_container">
                 <img src="{{ att.file.url }}" alt="Project Image" width="100%">
 
             </div>
 
             {% elif att.file_type == "pdf" %}
-            <div class="pdf-item">
+            <div class="pdf-item image_container">
                 <embed src="{{ att.file.url }}" type="application/pdf" width="100%" height="600px" />
             </div>
         </div>

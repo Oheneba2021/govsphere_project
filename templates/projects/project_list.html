@@ -64,8 +64,8 @@
                     <td>{{ project.status }}</td>
                     <td>
                         <a href="{% url 'project_detail' project.pk %}"><i class="fa-solid fa-eye"></i></a>
-                        <a href=""><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a href=""><i class="fa-solid fa-trash"></i></a>
+                        <a href="{% url 'edit_project' project.pk %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="{% url 'delete_project' project.pk %}"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
                 {% empty %}

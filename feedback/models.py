@@ -12,7 +12,7 @@ class Feedback(models.Model):
     )
     
     FEEDBACK_TYPE_CHOICES = (
-        ('complaint', 'Compliant'),
+        ('complaint', 'Complaint'),
         ('suggestion', 'Suggestion'),
         ('question', 'Question'),
         ('appreciation', 'Appreciation'),
@@ -47,7 +47,7 @@ class Feedback(models.Model):
     responded_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_anonymous = models.BooleanField(default=False)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         constraints = [

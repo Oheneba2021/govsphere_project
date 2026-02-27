@@ -113,3 +113,46 @@ def add_feedback_global(request):
     }
 
     return render(request, "feedback/add_feedback_global.html", data)
+
+def is_owner_or_admin(user, feedback):
+    return user.is_superuser or getattr(feedback, "user", "") == "admin" or feedback.user == user
+
+
+@login_required
+def edit_feedback(request, pk):
+    feedback = get_object_or_404(Feedback, pk=pk)
+
+    if not is_owner_or_admin(request.user, feedback):
+        return redirect("feedback_detail", pk=pk)
+
+    if request.method == "POST":
+        form = FeedbackWithProjectForm(request.POST, instance=feedback)
+        if form.is_valid():
+            form.save()
+            return redirect("feedback_detail", pk=pk)
+    else:
+        form = FeedbackWithProjectForm(instance=feedback)
+
+    data = {
+        "form": form,
+        "feedback": feedback,
+        "projects": Project.objects.all(),   # or filter by user/ownership
+        "feedback_type_choices": Feedback.FEEDBACK_TYPE_CHOICES,
+        "priority_choices": Feedback.PRIORITY_CHOICES,
+        "rating_choices": Feedback.RATING,
+    }
+    return render(request, "feedback/edit_feedback.html", data)
+
+@login_required
+def delete_feedback(request, pk):
+    feedback = get_object_or_404(Feedback, pk=pk)
+
+    if not is_owner_or_admin(request.user, feedback):
+        return redirect("feedback_detail", pk=pk)
+
+    if request.method == "POST":
+        feedback.delete()
+        return redirect("feedback")
+
+    data = {"feedback": feedback}
+    return render(request, "feedback/confirm_delete.html", data)

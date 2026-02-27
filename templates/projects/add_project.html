@@ -24,7 +24,7 @@ Govsphere: Add New Project
 
     .is_form_item {
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
         margin-bottom: 20px;
 
     }
@@ -47,6 +47,7 @@ Govsphere: Add New Project
         transition: background-color 0.3s ease;
     }
 </style>
+{% block add_project_form %}
 <div class="add-project-form">
     <h2>Add New Project</h2>
     <form method="post">
@@ -86,4 +87,5 @@ Govsphere: Add New Project
     {{ forms.errors }}
     {% endif %}
 </div>
+{% endblock add_project_form %}
 {% endblock projects_main %}

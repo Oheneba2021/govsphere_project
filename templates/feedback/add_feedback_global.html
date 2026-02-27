@@ -49,6 +49,7 @@ Govsphere : Add Feedback
 </style>
 <div class="is-add-feedback">
     <h2>Add Feedback</h2>
+    {% block add_feedback_form %}
     <form method="post">
         {% csrf_token %}
         <!-- {{ form.as_p }} -->
@@ -101,5 +102,9 @@ Govsphere : Add Feedback
         
         <button type="submit">Submit Feedback</button>
     </form>
+    {% endblock add_feedback_form %}
+        {% if forms.errors %}
+        {{ forms.errors }}
+        {% endif %}
 </div>
 {% endblock projects_main %}

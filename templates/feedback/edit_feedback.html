@@ -1,0 +1,60 @@
+{% extends "feedback/add_feedback_global.html" %}
+{% block title %}
+Govsphere : Edit Feedback
+{% endblock title %}
+
+{% block add_feedback_form %}
+    <form method="post">
+        {% csrf_token %}
+        <!-- {{ form.as_p }} -->
+        <div class="form-item">
+            <label for="select-project">Select Project:</label>
+            <select name="project" id="select-project">
+                <option value="">-- Select a Project --</option>
+                {% for project in projects %}
+                <option value="{{ project.id }}" {% if feedback.project and feedback.project.id == project.id %}selected{% endif %}>{{ project.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="feedback-type">Feedback Type:</label>
+            <select name="feedback_type" id="feedback-type">
+                {% for value, label in feedback_type_choices %}
+                <option value="{{ value }}" {% if feedback.feedback_type == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+         <div class="form-item">
+            <label for="priority">Priority:</label>
+            <select name="priority" id="priority">
+                {% for value, label in priority_choices %}
+                <option value="{{ value }}" {% if feedback.priority == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-item">
+            <label for="project-rating">Project Rating:</label>
+            <select name="project_rating" id="project-rating">
+                {% for value, label in rating_choices %}
+                <option value="{{ value }}" {% if feedback.project_rating == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="contractor-rating">Contractor Rating:</label>
+            <select name="contractor_rating" id="contractor-rating">
+                {% for value, label in rating_choices %}
+                <option value="{{ value }}" {% if feedback.contractor_rating == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="message">Message:</label>
+            <textarea name="message" id="message" rows="4" cols="50">{{ feedback.message }}</textarea>
+        </div>
+        
+        <button type="submit">Update Feedback</button>
+    </form>
+
+{% endblock add_feedback_form %}
