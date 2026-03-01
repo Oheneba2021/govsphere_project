@@ -5,9 +5,13 @@
         <h1>{{feedback_detail.project.title}} Feedback</h1>
         <div class="is-details">
             <div>
-                <span><strong>Feedback:</strong></span>
+                <span><strong>Feedback Mesage:</strong></span>
                 <p>{{feedback_detail.message}}</p>
             </div>
+            <div style="color: #666; font-size: 0.9em; margin-top:4px;">
+                            Type: {{ feedback_detail.feedback_type }} • Priority: {{ feedback_detail.priority }}
+                            • Project rating: {{ feedback_detail.project_rating }} • Contractor rating: {{ feedback_detail.contractor_rating }}
+                        </div>
         </div>
     </div>
 {% endblock projects_main %}

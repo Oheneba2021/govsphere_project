@@ -8,4 +8,6 @@ urlpatterns = [
     path("feedback/add/", views.add_feedback_global, name = "add_feedback_global"),
     path("<int:pk>/edit/", views.edit_feedback, name = "edit_feedback"),
     path("<int:pk>/delete/", views.delete_feedback, name = "delete_feedback"),
+    path("view/", views.view_project_feedback, name="view_project_feedback"),
+    # path("<int:pk>/", views.project_feedback_detail, name="project_feedback_detail"),
 ]

@@ -39,13 +39,7 @@ Govsphere: Add New Project
         font-size: 16px;
     }
 
-    button {
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+    
 </style>
 {% block add_project_form %}
 <div class="add-project-form">
@@ -53,7 +47,7 @@ Govsphere: Add New Project
     <form method="post">
         {% csrf_token %}
         <div class="is_form_item">
-            <label for="title">Project Title</label>
+            <label for="title"><strong>Project Title</strong></label>
             <input type="text" id="title" name="title" required>
         </div>
         <div class="is_form_item">

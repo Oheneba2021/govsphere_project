@@ -1,0 +1,75 @@
+{% extends "feedback/feedback_list.html" %}
+{% block title %}
+Govsphere : View Project Feedbacks
+{% endblock title %}
+
+
+
+{% block projects_main %}
+<style>
+    .search-container{
+        width:1200px;
+    }
+</style>
+
+<div class="project-detail">
+
+    <h2>View Feedbacks</h2>
+
+    <div class="search-container">
+        <form method="get" style="margin-bottom: 1rem;">
+            <input type="text" name="q" value="{{ q }}"
+                placeholder="Search feedback by message, project title/location, or username"
+                style="width: 60%; padding: 8px;">
+            <button type="submit" style="padding: 8px 12px;">Search</button>
+
+            {% if q %}
+                <a href="{% url 'view_project_feedback'%}" style="margin-left: 10px;">Clear</a>
+            {% endif %}
+        </form>
+    </div>
+
+    <div class="search-results">
+        {% if q %}
+            <p><small>Showing {{ count }} feedback item(s)</small></p>
+
+            <ul style="list-style: none; padding: 0;">
+                {% for fb in feedbacks %}
+                    <li style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 10px;">
+
+                        <div style="display:flex; justify-content:space-between; gap: 10px;">
+                            <a href="{% url 'feedback_detail' fb.project.pk %}"
+                               style="font-weight: bold; text-decoration: none;">
+                                {{ fb.project.title }}
+                            </a>
+
+                            <span style="color:#666; font-size:0.9em;">
+                                {{ fb.created_at|date:"M d, Y H:i" }}
+                            </span>
+                        </div>
+
+                        <div style="color: #666; font-size: 0.9em; margin-top:4px;">
+                            Type: {{ fb.feedback_type }} • Priority: {{ fb.priority }}
+                            • Project rating: {{ fb.project_rating }} • Contractor rating: {{ fb.contractor_rating }}
+                        </div>
+
+                        <p style="margin: 6px 0 0;">
+                            {{ fb.message|truncatewords:25 }}
+                        </p>
+
+                        <div style="color:#777; font-size:0.85em; margin-top:6px;">
+                            {% if fb.is_anonymous %}
+                                By: Anonymous
+                            {% else %}
+                                By: {{ fb.user.username }}
+                            {% endif %}
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>No feedback found.</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock projects_main %}

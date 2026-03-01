@@ -156,3 +156,27 @@ def delete_feedback(request, pk):
 
     data = {"feedback": feedback}
     return render(request, "feedback/confirm_delete.html", data)
+
+@login_required
+def view_project_feedback(request):
+    q = request.GET.get("q", "").strip()
+
+    projects = Project.objects.all().order_by("-created_at")
+    feedbacks = Feedback.objects.select_related("project").all()
+    
+
+    if q:
+        projects = projects.filter(
+            Q(title__icontains=q) |
+            Q(description__icontains=q) |
+            Q(location__icontains=q)
+        ).order_by("-created_at")
+
+    data = {
+        "q": q,
+        "projects": projects,
+        "count": projects.count(),
+        "feedbacks": feedbacks,
+    }
+
+    return render(request, "feedback/view_project_feedback.html", data)
