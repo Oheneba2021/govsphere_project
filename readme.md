@@ -1,127 +1,148 @@
 GovSphere
 
-GovSphere is a civic engagement and governance transparency platform that enables citizens to view public projects, track their progress, and submit feedback directly to administrators.
+GovSphere is a civic engagement and governance transparency platform designed to help users track public projects and provide structured feedback in a centralized system.
 
-This project is being developed as a 4-week MVP focused on proving the core transparency loop between citizens and government projects.
+The goal of this project is to create a digital space where projects can be documented, reviewed, and discussed through citizen feedback, improving visibility and accountability.
 
-Project Goal (MVP)
+Project Overview
 
-The goal of this MVP is to demonstrate that:
+GovSphere allows authenticated users to:
 
-Citizens can register and log in
+Manage development projects
 
-Admins can create and manage government projects
+Attach supporting documents and media
 
-Citizens can view projects and their locations
+Submit and review feedback tied to projects
 
-Citizens can submit feedback on projects
+Search and retrieve project or feedback data
 
-Admins can view that feedback
+This MVP focuses on the core interaction loop between projects and public feedback.
 
-This proves the feasibility of a larger GovSphere platform.
+Features Implemented
+Authentication
 
-Tech Stack
+Custom login system
 
-Backend: Django
+Access-controlled dashboard
 
-Database: SQLite (development)
+Dashboard
 
-Frontend: Django Templates (initially)
+Displays summarized database insights
 
-Maps: Google Maps API (planned)
+Provides entry point to platform features
 
-Deployment: (to be decided)
+Project Management
 
-Django Apps Structure
+Users can:
 
-The project is intentionally kept minimal and modular.
+Add new projects
 
-App	Responsibility
-accounts	Custom user model and roles (citizen, admin)
-projects	Government project data (title, budget, status, location)
-feedback	Citizen feedback linked to projects
-core	Dashboard, home views, shared templates
-Database Models Implemented
-User (accounts)
+Edit existing projects
 
-Custom user model
+Delete projects
 
-Role field: citizen or admin
+Search for projects
 
-Project (projects)
+View project details
 
-Title
+Attachments
 
-Description
+Users can upload:
 
-Budget
+Images
 
-Status (pending, ongoing, completed)
+PDF files
 
-Latitude & Longitude
+Word documents
 
-Created by (admin)
+These are linked directly to projects to support documentation and transparency.
 
-Feedback (feedback)
+Feedback System
 
-Linked to project
+Users can:
 
-Linked to user
+Add feedback to a project
+
+Edit feedback
+
+Delete feedback
+
+Search for feedback by project name
+
+Feedback includes:
+
+Type
+
+Priority
+
+Ratings
 
 Message
 
-Timestamp
+Anonymous option
 
-Progress Log
-Completed
+Search Capabilities
 
-Django project and apps created
+The platform includes search functionality for:
 
-Custom user model implemented
+Projects (by title, description, or location)
 
-Project and Feedback models implemented
+Feedback (by project name)
 
-Migrations successful
+This improves discoverability and usability.
 
-Django admin configured
+Technologies Used
 
-Superuser created
+Django
 
-Test data added through admin
+SQLite
 
-In Progress
+HTML/CSS
 
-Views and templates for project listing
+Django ORM
 
-Authentication pages (login/register)
+Django Authentication System
 
-Pending
+Current Scope (MVP)
 
-Project detail page with map
+Within the 5-week sprint, the focus was on building a fully functional system that supports:
 
-Feedback submission form
+Project lifecycle management
 
-Admin feedback view
+Document attachment
 
-Basic data visualization
+Citizen-style feedback interaction
 
-Deployment and documentation
+Search and retrieval
 
-How to Run the Project
-git clone https://github.com/Oheneba2021/govsphere_project.git
+The system demonstrates a working governance interaction model.
+
+Future Improvements
+
+Planned enhancements include:
+
+Data visualizations
+
+Notification system
+
+Role-based moderation
+
+Public data integrations
+
+Maps integration
+
+Advanced analytics
+
+Installation (Local Setup)
+git clone <repo-url>
 cd govsphere
-python manage.py makemigrations
+pip install -r requirements.txt
 python manage.py migrate
-python manage.py createsuperuser
 python manage.py runserver
+Demo
 
+A Loom walkthrough demonstrating the system features is available.
 
-Visit:
-http://127.0.0.1:8000/admin
+Author
 
-4-Week Development Plan
-
-Week 1: Setup, models, authentication
-Week 2: Project management and listing
-Week 3: Feedback system
-Week 4: Testing, visualization, deployment, documentation
+Godwin Boakye
